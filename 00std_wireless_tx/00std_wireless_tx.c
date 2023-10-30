@@ -1,14 +1,48 @@
 #include <nrf.h>
 #include "nrf52833.h"
 
-static uint8_t pdu[] = {
+static uint8_t pdu1[] = {
     0x00, // header
        6, // length
-    0x45, 0x53, 0x49, 0x52, 0x4f, 0x49
+    0x00,0x00,0x00,0x00,0x00,0x31
 };
-
+static uint8_t pdu2[] = {
+    0x00, // header
+       6, // length
+    0x00,0x00,0x00,0x00,0x00,0x32
+};
+static uint8_t pdu3[] = {
+    0x00, // header
+       6, // length
+    0x00,0x00,0x00,0x00,0x00,0x33
+};
+static uint8_t pdu4[] = {
+    0x00, // header
+       6, // length
+    0x00,0x00,0x00,0x00,0x00,0x34
+};
+static uint8_t pdu5[] = {
+    0x00, // header
+       6, // length
+    0x00,0x00,0x00,0x00,0x00,0x35
+};
+static uint8_t pdu6[] = {
+    0x00, // header
+       6, // length
+    0x00,0x00,0x00,0x00,0x00,0x36
+};
+static uint8_t pdu7[] = {
+    0x00, // header
+       6, // length
+    0x00,0x00,0x00,0x00,0x00,0x37
+};
+static uint8_t pdu8[] = {
+    0x00, // header
+       6, // length
+    0x00,0x00,0x00,0x00,0x00,0x38
+};
 uint32_t wait;
-
+int compteur =1;
 int main(void) {
     
     // configured HF clock
@@ -24,7 +58,7 @@ int main(void) {
                                (                              2 << RADIO_PCNF0_CILEN_Pos)          |
                                (     RADIO_PCNF0_PLEN_LongRange << RADIO_PCNF0_PLEN_Pos)           |
                                (                              3 << RADIO_PCNF0_TERMLEN_Pos);
-    NRF_RADIO->PCNF1         = (                    sizeof(pdu) << RADIO_PCNF1_MAXLEN_Pos)         |
+    NRF_RADIO->PCNF1         = (                    sizeof(pdu1) << RADIO_PCNF1_MAXLEN_Pos)         |
                                (                              0 << RADIO_PCNF1_STATLEN_Pos)        |
                                (                              3 << RADIO_PCNF1_BALEN_Pos)          |
                                (      RADIO_PCNF1_ENDIAN_Little << RADIO_PCNF1_ENDIAN_Pos)         |
@@ -37,8 +71,8 @@ int main(void) {
                                (     RADIO_CRCCNF_SKIPADDR_Skip << RADIO_CRCCNF_SKIPADDR_Pos);
     NRF_RADIO->CRCINIT       = 0xFFFFUL;
     NRF_RADIO->CRCPOLY       = 0x00065b; // CRC poly: x^16 + x^12^x^5 + 1
-    NRF_RADIO->FREQUENCY     = 10;
-    NRF_RADIO->PACKETPTR     = (uint32_t)pdu;
+    NRF_RADIO->FREQUENCY     = 15;
+    NRF_RADIO->PACKETPTR     = (uint32_t)pdu4;
 
     NRF_RADIO->INTENCLR = 0xffffffff;
     NRF_RADIO->SHORTS = (RADIO_SHORTS_READY_START_Enabled << RADIO_SHORTS_READY_START_Pos) |
@@ -46,14 +80,30 @@ int main(void) {
     NRF_RADIO->INTENSET = (RADIO_INTENSET_DISABLED_Enabled << RADIO_INTENSET_DISABLED_Pos);
     NVIC_EnableIRQ(RADIO_IRQn);
 
-    while(1) {
+   while(1) {
         // send
-        NRF_RADIO->TASKS_TXEN = (RADIO_TASKS_TXEN_TASKS_TXEN_Trigger << RADIO_TASKS_TXEN_TASKS_TXEN_Pos);
+       // NRF_RADIO->TASKS_TXEN = (RADIO_TASKS_TXEN_TASKS_TXEN_Trigger << RADIO_TASKS_TXEN_TASKS_TXEN_Pos);
+        //NRF_RADIO->PACKETPTR     = (uint32_t)pdu7;
+         NRF_RADIO->TASKS_TXEN = (RADIO_TASKS_TXEN_TASKS_TXEN_Trigger << RADIO_TASKS_TXEN_TASKS_TXEN_Pos);
+        /*
+        if (compteur==1){
+         NRF_RADIO->PACKETPTR     = (uint32_t)pdu8;
+         compteur++;
+         }
+         else{
+         NRF_RADIO->PACKETPTR     = (uint32_t)pdu7;
+         compteur--;
+         }
+         */
         while (NRF_RADIO->EVENTS_DISABLED != 0) {}
-        
         // wait a bit
         wait = 0x00ffffff;
-        while (wait--);
+       // while (wait--);
+       // NRF_RADIO->TASKS_TXEN = (RADIO_TASKS_TXEN_TASKS_TXEN_Trigger << RADIO_TASKS_TXEN_TASKS_TXEN_Pos);
+       //  NRF_RADIO->PACKETPTR     = (uint32_t)pdu8;
+         //NRF_RADIO->TASKS_TXEN = (RADIO_TASKS_TXEN_TASKS_TXEN_Trigger << RADIO_TASKS_TXEN_TASKS_TXEN_Pos);
+         // NRF_RADIO->PACKETPTR     = (uint32_t)pdu6;
+         
     }
 }
 
@@ -62,3 +112,5 @@ void RADIO_IRQHandler(void) {
         NRF_RADIO->EVENTS_DISABLED = 0;
     }
 }
+
+
