@@ -1,0 +1,46 @@
+<!DOCTYPE CrossStudio_Session_File>
+<session>
+ <Bookmarks/>
+ <Breakpoints groups="Breakpoints" active_group="Breakpoints"/>
+ <ExecutionProfileWindow/>
+ <FrameBuffer/>
+ <Memory1/>
+ <Memory2/>
+ <Memory3/>
+ <Memory4/>
+ <Project>
+  <ProjectSessionItem path="microbit"/>
+  <ProjectSessionItem path="microbit;00std_cutebot"/>
+  <ProjectSessionItem path="microbit;00std_ringbit"/>
+  <ProjectSessionItem path="microbit;00std_ringbit;Source Files"/>
+  <ProjectSessionItem path="microbit;00std_wireless_tx"/>
+  <ProjectSessionItem path="microbit;00std_wireless_tx;Source Files"/>
+ </Project>
+ <Register1/>
+ <Register2/>
+ <Register3/>
+ <Register4/>
+ <Threads>
+  <ThreadsWindow showLists=""/>
+ </Threads>
+ <TraceWindow>
+  <Trace enabled="Yes"/>
+ </TraceWindow>
+ <Watch1>
+  <Watches active="1" update="Never"/>
+ </Watch1>
+ <Watch2>
+  <Watches active="0" update="Never"/>
+ </Watch2>
+ <Watch3>
+  <Watches active="0" update="Never"/>
+ </Watch3>
+ <Watch4>
+  <Watches active="0" update="Never"/>
+ </Watch4>
+ <Files>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="116" useTextEdit="1" path="00std_wireless_tx/00std_wireless_tx.c" left="0" top="84" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="21" y="3" useTextEdit="1" path="00std_ringbit/00std_ringbit.c" left="0" selected="1" top="0" codecName="Default"/>
+ </Files>
+ <EMStudioWindow activeProject="00std_cutebot" fileDialogDefaultFilter="*.c" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="" debugSearchPath="" autoConnectCapabilities="3199"/>
+</session>
